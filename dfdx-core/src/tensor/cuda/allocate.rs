@@ -22,11 +22,11 @@ impl Cuda {
         Ok(self.build_tensor(shape, shape.strides(), slice))
     }
 
-    pub(crate) fn build_tensor<S: Shape, E: Unit>(
+    pub fn build_tensor<S: Shape, E: Unit>(
         &self,
         shape: S,
         strides: S::Concrete,
-        slice: CudaSlice<E>,
+        slice: CudaSlice<E>
     ) -> Tensor<S, E, Self> {
         let data = CachableCudaSlice {
             data: slice,

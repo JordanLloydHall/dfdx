@@ -88,6 +88,26 @@ impl Cuda {
             cache: Default::default(),
         })
     }
+
+    /// Constructs with the given seed & device ordinal
+    pub fn try_build_with_dev(dev: Arc<CudaDevice>, seed: u64) -> Result<Self, Error> {
+        let cpu = Cpu::seed_from_u64(seed);
+        let blas = Arc::new(CudaBlas::new(dev.clone())?);
+        #[cfg(feature = "cudnn")]
+        let cudnn = cudarc::cudnn::Cudnn::new(dev.clone())?;
+        let par_stream = Arc::new(dev.fork_default_stream()?);
+        let workspace = Arc::new(Mutex::new(dev.alloc_zeros::<u8>(1)?));
+        Ok(Self {
+            cpu,
+            dev,
+            blas,
+            #[cfg(feature = "cudnn")]
+            cudnn,
+            par_stream,
+            workspace,
+            cache: Default::default(),
+        })
+    }
 }
 
 impl Cuda {

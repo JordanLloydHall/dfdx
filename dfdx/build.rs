@@ -2,7 +2,7 @@ fn main() {
     println!("cargo:rerun-if-changed=build.rs");
 
     // If on nightly, enable "nightly" feature
-    maybe_enable_nightly();
+    // maybe_enable_nightly();
 }
 
 fn maybe_enable_nightly() {

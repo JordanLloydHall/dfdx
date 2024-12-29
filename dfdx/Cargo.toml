@@ -63,7 +63,6 @@ safetensors = [
 test-f16 = ["f16", "dfdx-core/f16"]
 test-amp-f16 = ["f16", "dfdx-core/f16"]
 test-f64 = []
-ci-check = ["dfdx-core/ci-check"]
 
 [[bench]]
 name = "batchnorm2d"
